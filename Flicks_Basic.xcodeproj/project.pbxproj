@@ -12,6 +12,7 @@
 		E5BFAFF51E259BBD001643D2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5BFAFF41E259BBD001643D2 /* Assets.xcassets */; };
 		E5BFAFF81E259BBD001643D2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5BFAFF61E259BBD001643D2 /* LaunchScreen.storyboard */; };
 		E5BFB0001E259CA7001643D2 /* MoviesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BFAFFF1E259CA7001643D2 /* MoviesViewController.swift */; };
+		E5BFB0031E25A75E001643D2 /* MovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5BFB0021E25A75E001643D2 /* MovieCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		E5BFAFF71E259BBD001643D2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5BFAFF91E259BBD001643D2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E5BFAFFF1E259CA7001643D2 /* MoviesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoviesViewController.swift; sourceTree = "<group>"; };
+		E5BFB0021E25A75E001643D2 /* MovieCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +56,31 @@
 		E5BFAFEC1E259BBD001643D2 /* Flicks_Basic */ = {
 			isa = PBXGroup;
 			children = (
+				E5BFB0041E25A76C001643D2 /* ViewControllers */,
+				E5BFB0011E25A73D001643D2 /* Views */,
 				E5BFAFED1E259BBD001643D2 /* AppDelegate.swift */,
 				E5BFAFF11E259BBD001643D2 /* Main.storyboard */,
 				E5BFAFF41E259BBD001643D2 /* Assets.xcassets */,
 				E5BFAFF61E259BBD001643D2 /* LaunchScreen.storyboard */,
 				E5BFAFF91E259BBD001643D2 /* Info.plist */,
-				E5BFAFFF1E259CA7001643D2 /* MoviesViewController.swift */,
 			);
 			path = Flicks_Basic;
+			sourceTree = "<group>";
+		};
+		E5BFB0011E25A73D001643D2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E5BFB0021E25A75E001643D2 /* MovieCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		E5BFB0041E25A76C001643D2 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				E5BFAFFF1E259CA7001643D2 /* MoviesViewController.swift */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,6 +157,7 @@
 			files = (
 				E5BFAFEE1E259BBD001643D2 /* AppDelegate.swift in Sources */,
 				E5BFB0001E259CA7001643D2 /* MoviesViewController.swift in Sources */,
+				E5BFB0031E25A75E001643D2 /* MovieCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
