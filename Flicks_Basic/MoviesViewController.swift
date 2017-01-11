@@ -68,11 +68,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     cell.titleLabel.text = title
     cell.overviewLabel.text = overview
   
-    
-    
-    
-    
-    
     //cell.textLabel?.text = "row \(indexPath.row)"
     //print("row\(indexPath.row)")
     
@@ -107,6 +102,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
               self.movies = dataDictionary["results"] as? [NSDictionary]
               self.tableView.reloadData()
             }
+          } else {
+                  self.view.viewWithTag(1)?.isHidden = false
+                  MBProgressHUD.hide(for: self.view, animated: true)
           }
         }
         task.resume()
@@ -149,6 +147,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     });
     task.resume()
     
+  }
+  
+  func showNetworkError() {
+    
+
   }
   
   
