@@ -37,16 +37,21 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fpy-8w-K8d">
-                                                    <rect key="frame" x="18" y="35" width="333" height="64"/>
+                                                    <rect key="frame" x="138" y="35" width="213" height="64"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" id="ZQs-o7-LjI">
+                                                    <rect key="frame" x="8" y="29" width="112" height="70"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="overviewLabel" destination="fpy-8w-K8d" id="Wvi-yV-kYw"/>
+                                            <outlet property="posterView" destination="ZQs-o7-LjI" id="YRX-tt-1HS"/>
                                             <outlet property="titleLabel" destination="7zK-hd-eUy" id="tyc-RM-Xyv"/>
                                         </connections>
                                     </tableViewCell>
