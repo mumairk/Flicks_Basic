@@ -31,6 +31,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   let refreshControl = UIRefreshControl()
   
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
+  
+  
   override func viewDidLoad() {
     
     super.viewDidLoad()
@@ -42,9 +47,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     searchBar.delegate = self
     filteredMovies = movies
     
-    //  toggleViewButton.titleLabel?.text = "Switch"
-    
-   loadDataFromNetwork()
+    self.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
+    toggleViewButton.isHidden = true
+    self.searchBar.isHidden = true
+
+    loadDataFromNetwork()
     
     if collectionIsFirstView {
       loadCollectionView()
@@ -99,6 +106,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
       loadCollectionView()
       self.reloadData()
       print("Loading collection view")
+
     }
       
     else if currentView == self.collectionView {
@@ -119,6 +127,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
     collectionView.insertSubview(refreshControl, at: 0)
     currentView = self.collectionView
+
     
   }
   
@@ -131,6 +140,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
     tableView.insertSubview(refreshControl, at: 0)
     currentView = self.tableView
+
     
   }
   
@@ -187,6 +197,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
           // Hide Progress HUD
           MBProgressHUD.hide(for: self.view, animated: true)
           
+          self.toggleViewButton.isHidden = false
+          self.searchBar.isHidden = false
+          
           self.movies = dataDictionary["results"] as? [NSDictionary]
           self.filteredMovies = self.movies
           self.refreshControl.endRefreshing()
@@ -210,6 +223,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   func displayNetworkError() {
     
     self.view.viewWithTag(1)?.isHidden = false
+    toggleViewButton.isHidden = true
+    self.searchBar.isHidden = true
     MBProgressHUD.hide(for: self.view, animated: true)
     // add code to hide toggle button
     
