@@ -3,49 +3,67 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "video40.png",
+      "filename" : "film_medgrey40.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "video60.png",
+      "filename" : "film_medgrey60.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "video58.png",
+      "filename" : "film_medgrey29.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "film_medgrey58.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "video87.png",
+      "filename" : "film_medgrey87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "video80.png",
+      "filename" : "film_medgrey80.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "video120.png",
+      "filename" : "film_medgrey120.png",
       "scale" : "3x"
     },
     {
-      "size" : "60x60",
+      "size" : "57x57",
       "idiom" : "iphone",
-      "filename" : "video120-1.png",
+      "filename" : "film_medgrey57.png",
+      "scale" : "1x"
+    },
+    {
+      "size" : "57x57",
+      "idiom" : "iphone",
+      "filename" : "film_medgrey114.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "video180.png",
+      "filename" : "film_medgrey120-1.png",
+      "scale" : "2x"
+    },
+    {
+      "size" : "60x60",
+      "idiom" : "iphone",
+      "filename" : "film_medgrey180.png",
       "scale" : "3x"
     }
   ],

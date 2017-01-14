@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uLp-bC-AAW">
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="uLp-bC-AAW">
                                 <rect key="frame" x="10" y="35" width="355" height="44"/>
                                 <subviews>
                                     <searchBar opaque="NO" contentMode="redraw" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="3Ta-Kp-8t7">
@@ -35,7 +35,7 @@
                                         </scopeButtonTitles>
                                     </searchBar>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qe6-f2-u8f">
-                                        <rect key="frame" x="335" y="0.0" width="20" height="44"/>
+                                        <rect key="frame" x="330" y="0.0" width="25" height="44"/>
                                         <state key="normal">
                                             <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>

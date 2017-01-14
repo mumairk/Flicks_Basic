@@ -121,7 +121,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   func loadCollectionView() {
     
-    toggleViewButton.setImage(#imageLiteral(resourceName: "grid48"), for: .normal)
+    toggleViewButton.setImage(#imageLiteral(resourceName: "grid_medgrey24"), for: .normal)
     
     UIView.transition(from: self.tableView, to: self.collectionView, duration: 0, options: .showHideTransitionViews, completion: nil)
     refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
@@ -133,7 +133,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   func loadTableView() {
     
-    toggleViewButton.setImage(#imageLiteral(resourceName: "list48"), for: .normal)
+    toggleViewButton.setImage(#imageLiteral(resourceName: "listgrid_medgrey24"), for: .normal)
 
     
     UIView.transition(from: self.collectionView, to: self.tableView, duration: 0, options: .showHideTransitionViews, completion: nil)
@@ -226,7 +226,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     toggleViewButton.isHidden = true
     self.searchBar.isHidden = true
     MBProgressHUD.hide(for: self.view, animated: true)
-    // add code to hide toggle button
     
   }
   
