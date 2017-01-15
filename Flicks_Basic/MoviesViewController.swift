@@ -12,8 +12,10 @@ import MBProgressHUD
 
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
+
   
-  
+  lazy var search:UISearchBar = UISearchBar()
+
   @IBOutlet weak var searchBar: UISearchBar!
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var collectionView: UICollectionView!
@@ -46,6 +48,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     tableView.delegate = self
     searchBar.delegate = self
     filteredMovies = movies
+
+    search.placeholder = "Your placeholder"
+    var leftNavBarButton = UIBarButtonItem(customView: search)
+    self.navigationItem.leftBarButtonItem = leftNavBarButton
+    
     
     self.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
     toggleViewButton.isHidden = true
@@ -298,15 +305,27 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   
   
-  /*
+  
    // MARK: - Navigation
    
    // In a storyboard-based application, you will often want to do a little preparation before navigation
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    
+    let cell = sender as! UICollectionViewCell
+    let indexPath = collectionView.indexPath(for: cell)
+    let movie = movies![indexPath!.item]
+    
+    let detailViewController = segue.destination as! DetailViewController
+    detailViewController.movie = movie 
+    
+    
+    print("prepare for segue called")
+    
+    
    // Get the new view controller using segue.destinationViewController.
    // Pass the selected object to the new view controller.
    }
-   */
+  
   
 }
 
