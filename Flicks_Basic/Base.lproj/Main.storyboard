@@ -25,7 +25,7 @@
                                 <rect key="frame" x="10" y="79" width="355" height="44"/>
                                 <subviews>
                                     <searchBar opaque="NO" contentMode="redraw" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="3Ta-Kp-8t7">
-                                        <rect key="frame" x="0.0" y="0.0" width="325" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="355" height="44"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="barTintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="yes" spellCheckingType="yes" keyboardAppearance="alert"/>
@@ -34,15 +34,6 @@
                                             <string>Title</string>
                                         </scopeButtonTitles>
                                     </searchBar>
-                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qe6-f2-u8f">
-                                        <rect key="frame" x="330" y="0.0" width="25" height="44"/>
-                                        <state key="normal">
-                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="toggleView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ttE-YA-a9B"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                             </stackView>
                             <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" indicatorStyle="white" keyboardDismissMode="interactive" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="snJ-Ys-HgK">
@@ -80,7 +71,7 @@
                                         <connections>
                                             <outlet property="posterImageView" destination="iDg-2a-4a5" id="hIb-Y4-AGt"/>
                                             <outlet property="titleLabel" destination="m35-36-DBY" id="sZN-4n-25k"/>
-                                            <segue destination="xxK-Jv-uRr" kind="push" id="PKM-wj-QBQ"/>
+                                            <segue destination="xxK-Jv-uRr" kind="push" identifier="CollectionView" id="PKM-wj-QBQ"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -99,7 +90,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fpy-8w-K8d">
-                                                    <rect key="frame" x="138" y="35" width="219" height="64"/>
+                                                    <rect key="frame" x="138" y="35" width="196" height="64"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -119,11 +110,12 @@
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="overviewLabel" destination="fpy-8w-K8d" id="Wvi-yV-kYw"/>
                                             <outlet property="posterView" destination="ZQs-o7-LjI" id="YRX-tt-1HS"/>
                                             <outlet property="titleLabel" destination="7zK-hd-eUy" id="tyc-RM-Xyv"/>
-                                            <segue destination="xxK-Jv-uRr" kind="push" id="6re-d9-GeK"/>
+                                            <segue destination="xxK-Jv-uRr" kind="push" identifier="TableView" id="6re-d9-GeK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -163,13 +155,17 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="nAB-J6-Iwx">
-                        <barButtonItem key="rightBarButtonItem" image="grid_medgrey24" id="sTF-AJ-z9Y"/>
+                        <barButtonItem key="rightBarButtonItem" image="grid_medgrey24" id="sTF-AJ-z9Y">
+                            <connections>
+                                <action selector="toggleViewType:" destination="BYZ-38-t0r" id="ih2-Oi-8Kk"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="snJ-Ys-HgK" id="aeo-Lb-hTK"/>
                         <outlet property="searchBar" destination="3Ta-Kp-8t7" id="0JI-aX-OuV"/>
                         <outlet property="tableView" destination="ajv-Cd-bHf" id="zhE-aO-fOq"/>
-                        <outlet property="toggleViewButton" destination="Qe6-f2-u8f" id="Ulh-tt-0hM"/>
+                        <outlet property="toggleButton" destination="sTF-AJ-z9Y" id="jjC-tI-CZk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -188,38 +184,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fgT-QH-dfv">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <view alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pp4-Kr-SL4">
-                                <rect key="frame" x="0.0" y="380" width="375" height="287"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dqq-tU-Q8W">
+                                <rect key="frame" x="0.0" y="64" width="375" height="604"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gou-pT-OnG">
-                                        <rect key="frame" x="8" y="29" width="334" height="24"/>
+                                    <view alpha="0.80000000000000004" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pp4-Kr-SL4">
+                                        <rect key="frame" x="0.0" y="530" width="375" height="250"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZS8-cA-SwN">
-                                        <rect key="frame" x="8" y="69" width="359" height="210"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Overview" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZS8-cA-SwN">
+                                                <rect key="frame" x="17" y="61" width="334" height="18"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gou-pT-OnG">
+                                                <rect key="frame" x="17" y="29" width="334" height="24"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fgT-QH-dfv">
+                                        <rect key="frame" x="0.0" y="-76" width="375" height="616"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="yYh-yy-YaQ"/>
                     <connections>
+                        <outlet property="infoView" destination="Pp4-Kr-SL4" id="WlL-lQ-VIW"/>
                         <outlet property="overviewLabel" destination="ZS8-cA-SwN" id="nS0-s5-aD5"/>
                         <outlet property="posterImageView" destination="fgT-QH-dfv" id="uhd-Au-u0S"/>
+                        <outlet property="scrollView" destination="dqq-tU-Q8W" id="jMO-8c-MOi"/>
                         <outlet property="titleLabel" destination="Gou-pT-OnG" id="kCj-YB-d4s"/>
                     </connections>
                 </viewController>
@@ -230,7 +234,7 @@
         <!--Navigation Controller-->
         <scene sceneID="Frb-ER-l2T">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Smt-fq-6pi" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MoviesNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Smt-fq-6pi" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yRt-zy-pcJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -255,7 +259,7 @@
         <simulatedScreenMetrics key="destination" type="retina4_7.fullscreen"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="PKM-wj-QBQ"/>
+        <segue reference="6re-d9-GeK"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
 </document>

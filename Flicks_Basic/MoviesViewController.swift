@@ -17,25 +17,27 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   lazy var search:UISearchBar = UISearchBar()
 
   @IBOutlet weak var searchBar: UISearchBar!
+  
+  
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var collectionView: UICollectionView!
-  
-  @IBOutlet weak var toggleViewButton: UIButton!
+  @IBOutlet weak var toggleButton: UIBarButtonItem!
   
   var currentView: UIView!
   var movies: [NSDictionary]?
+  var movie: NSDictionary!
   var filteredMovies: [NSDictionary]?
   var imageUrl: NSURL!
   var collectionIsFirstView: Bool = true
   
-  let apiKey = "08626c78c1c24c6f0e9912f59264d957"
-  let urlString = "https://api.themoviedb.org/3/movie/now_playing?api_key="
+  var endpoint: String!
   
   let refreshControl = UIRefreshControl()
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
   }
+  
   
   
   override func viewDidLoad() {
@@ -48,20 +50,27 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     tableView.delegate = self
     searchBar.delegate = self
     filteredMovies = movies
+    
+    self.navigationController?.navigationBar.barStyle = .black
+    self.tabBarController?.tabBar.barStyle = .black
+    self.tabBarController?.tabBar.tintColor = UIColor.white
 
-    search.placeholder = "Your placeholder"
-    var leftNavBarButton = UIBarButtonItem(customView: search)
-    self.navigationItem.leftBarButtonItem = leftNavBarButton
+   // search.placeholder = "Your placeholder"
+  //  var leftNavBarButton = UIBarButtonItem(customView: search)
+   // self.navigationItem.leftBarButtonItem = leftNavBarButton
+    
+//     This is just a UISearchBar that is set as the navigationItem.titleView
     
     
     self.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
-    toggleViewButton.isHidden = true
     self.searchBar.isHidden = true
-
+    
     loadDataFromNetwork()
     
     if collectionIsFirstView {
       loadCollectionView()
+    } else {
+      loadTableView()
     }
     
   }
@@ -93,19 +102,25 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
       
     }
     
-    
     cell.titleLabel.text = title
     cell.overviewLabel.text = overview
+   
+    let backgroundView = UIView()
+    backgroundView.backgroundColor = UIColor(red: 0.4078, green: 0.3882, blue: 0.498, alpha: 0.4) /* #68637f */
+    
+    cell.selectedBackgroundView = backgroundView
     
     return cell
     
-    
   }
+  
+  
   
   // MARK: - TOGGLE VIEW
   
-  @IBAction func toggleView(_ sender: Any) {
-    
+
+  @IBAction func toggleViewType(_ sender: UIBarButtonItem) {
+   
     print("Pressed toggle button")
     
     if currentView == self.tableView {
@@ -113,7 +128,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
       loadCollectionView()
       self.reloadData()
       print("Loading collection view")
-
+      
     }
       
     else if currentView == self.collectionView {
@@ -123,12 +138,16 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
       currentView = self.tableView
       
     }
-    
   }
+  
+  func hideToggleButton() {
+    self.navigationItem.rightBarButtonItem = nil
+  }
+
   
   func loadCollectionView() {
     
-    toggleViewButton.setImage(#imageLiteral(resourceName: "grid_medgrey24"), for: .normal)
+    navigationItem.rightBarButtonItem?.image = UIImage(named: "grid_medgrey24")
     
     UIView.transition(from: self.tableView, to: self.collectionView, duration: 0, options: .showHideTransitionViews, completion: nil)
     refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
@@ -140,10 +159,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   func loadTableView() {
     
-    toggleViewButton.setImage(#imageLiteral(resourceName: "listgrid_medgrey24"), for: .normal)
-
-    
+   navigationItem.rightBarButtonItem?.image = UIImage(named: "listgrid_medgrey24")
     UIView.transition(from: self.collectionView, to: self.tableView, duration: 0, options: .showHideTransitionViews, completion: nil)
+    self.tableView.backgroundColor = UIColor.black
+  
+    
+    
+    
     refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
     tableView.insertSubview(refreshControl, at: 0)
     currentView = self.tableView
@@ -186,6 +208,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   func loadDataFromNetwork(){
     
+    let apiKey = "08626c78c1c24c6f0e9912f59264d957"
+    let urlString = "https://api.themoviedb.org/3/movie/\(endpoint!)?api_key="
+    
     let url = URL(string: urlString + apiKey)!
     
     let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
@@ -203,8 +228,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
           
           // Hide Progress HUD
           MBProgressHUD.hide(for: self.view, animated: true)
-          
-          self.toggleViewButton.isHidden = false
+
           self.searchBar.isHidden = false
           
           self.movies = dataDictionary["results"] as? [NSDictionary]
@@ -230,7 +254,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   func displayNetworkError() {
     
     self.view.viewWithTag(1)?.isHidden = false
-    toggleViewButton.isHidden = true
+    hideToggleButton()
     self.searchBar.isHidden = true
     MBProgressHUD.hide(for: self.view, animated: true)
     
@@ -311,19 +335,26 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
    // In a storyboard-based application, you will often want to do a little preparation before navigation
    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
-    let cell = sender as! UICollectionViewCell
-    let indexPath = collectionView.indexPath(for: cell)
-    let movie = movies![indexPath!.item]
-    
-    let detailViewController = segue.destination as! DetailViewController
-    detailViewController.movie = movie 
-    
-    
     print("prepare for segue called")
     
     
-   // Get the new view controller using segue.destinationViewController.
-   // Pass the selected object to the new view controller.
+    if segue.identifier == "CollectionView" {
+      
+      let cell = sender as! UICollectionViewCell
+      let indexPath = collectionView.indexPath(for: cell)
+      movie = movies![indexPath!.item]
+  
+    } else if segue.identifier == "TableView" {
+      
+      let cell = sender as! UITableViewCell
+      let indexPath = tableView.indexPath(for: cell)
+      movie = movies![(indexPath?.row)!]
+      
+    }
+  
+    let detailViewController = segue.destination as! DetailViewController
+    detailViewController.movie = movie
+
    }
   
   
