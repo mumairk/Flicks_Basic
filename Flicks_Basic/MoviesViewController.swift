@@ -29,7 +29,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   var endpoint: String!
   
   let refreshControl = UIRefreshControl()
-
+  
   override func viewDidLoad() {
     
     super.viewDidLoad()
@@ -88,7 +88,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     cell.titleLabel.text = title
     cell.overviewLabel.text = overview
-   
+    
     let backgroundView = UIView()
     backgroundView.backgroundColor = UIColor(red: 0.4078, green: 0.3882, blue: 0.498, alpha: 0.4) /* #68637f */
     
@@ -102,9 +102,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   // MARK: - TOGGLE VIEW
   
-
+  
   @IBAction func toggleViewType(_ sender: UIBarButtonItem) {
-   
+    
     print("Pressed toggle button")
     
     if currentView == self.tableView {
@@ -127,7 +127,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   func hideToggleButton() {
     self.navigationItem.rightBarButtonItem = nil
   }
-
+  
   
   func loadCollectionView() {
     
@@ -137,23 +137,23 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
     collectionView.insertSubview(refreshControl, at: 0)
     currentView = self.collectionView
-
+    
     
   }
   
   func loadTableView() {
     
-   navigationItem.rightBarButtonItem?.image = UIImage(named: "listgrid_medgrey24")
+    navigationItem.rightBarButtonItem?.image = UIImage(named: "listgrid_medgrey24")
     UIView.transition(from: self.collectionView, to: self.tableView, duration: 0, options: .showHideTransitionViews, completion: nil)
     self.tableView.backgroundColor = UIColor.black
-  
+    
     
     
     
     refreshControl.addTarget(self, action: #selector(refreshControlAction(refreshControl:)), for: UIControlEvents.valueChanged)
     tableView.insertSubview(refreshControl, at: 0)
     currentView = self.tableView
-
+    
     
   }
   
@@ -186,7 +186,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
   }
   
-
+  
   
   // MARK: - NETWORK REQUEST
   
@@ -212,8 +212,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
           
           // Hide Progress HUD
           MBProgressHUD.hide(for: self.view, animated: true)
-
-      //    self.searchBar.isHidden = false
+          
+          //    self.searchBar.isHidden = false
           
           self.movies = dataDictionary["results"] as? [NSDictionary]
           self.filteredMovies = self.movies
@@ -314,10 +314,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   
   
-   // MARK: - Navigation
-   
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+  // MARK: - Navigation
+  
+  // In a storyboard-based application, you will often want to do a little preparation before navigation
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     
     print("prepare for segue called")
     
@@ -327,7 +327,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
       let cell = sender as! UICollectionViewCell
       let indexPath = collectionView.indexPath(for: cell)
       movie = movies![indexPath!.item]
-  
+      
     } else if segue.identifier == "TableView" {
       
       let cell = sender as! UITableViewCell
@@ -335,11 +335,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
       movie = movies![(indexPath?.row)!]
       
     }
-  
+    
     let detailViewController = segue.destination as! DetailViewController
     detailViewController.movie = movie
-
-   }
+    
+  }
   
   
 }
