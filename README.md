@@ -63,7 +63,7 @@ Cocoapod installation required migrating to Cocoa Pods 1.0.0.
 
 **FLICKS THE SEUQEL** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).   
 
-Time spent: **6.5** hours spent in total
+Time spent: **7** hours spent in total
 
 ## User Stories
 
@@ -76,7 +76,7 @@ The following **required** functionality is completed:
 The following **optional** features are implemented:
 
 - [ ] For the large poster, load the low resolution image first and then switch to the high resolution image when complete.
-- [ ] Customize the navigation bar.
+- [X] Customize the navigation bar (implemented shadow styling in detail view controller) 
 
 The following **additional** features are implemented:
 
