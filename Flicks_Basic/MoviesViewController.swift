@@ -12,16 +12,12 @@ import MBProgressHUD
 
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UISearchBarDelegate {
-
-  
-  lazy var search:UISearchBar = UISearchBar()
-
-  @IBOutlet weak var searchBar: UISearchBar!
-  
   
   @IBOutlet weak var tableView: UITableView!
   @IBOutlet weak var collectionView: UICollectionView!
   @IBOutlet weak var toggleButton: UIBarButtonItem!
+  
+  var searchBar: UISearchBar = UISearchBar()
   
   var currentView: UIView!
   var movies: [NSDictionary]?
@@ -33,13 +29,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   var endpoint: String!
   
   let refreshControl = UIRefreshControl()
-  
-  override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
-  }
-  
-  
-  
+
   override func viewDidLoad() {
     
     super.viewDidLoad()
@@ -51,19 +41,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     searchBar.delegate = self
     filteredMovies = movies
     
+    self.navigationItem.titleView = searchBar
+    self.searchBar.barStyle = .black
+    self.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
+    
     self.navigationController?.navigationBar.barStyle = .black
     self.tabBarController?.tabBar.barStyle = .black
     self.tabBarController?.tabBar.tintColor = UIColor.white
-
-   // search.placeholder = "Your placeholder"
-  //  var leftNavBarButton = UIBarButtonItem(customView: search)
-   // self.navigationItem.leftBarButtonItem = leftNavBarButton
-    
-//     This is just a UISearchBar that is set as the navigationItem.titleView
-    
-    
-    self.searchBar.keyboardAppearance = UIKeyboardAppearance.dark
-    self.searchBar.isHidden = true
     
     loadDataFromNetwork()
     
@@ -229,7 +213,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
           // Hide Progress HUD
           MBProgressHUD.hide(for: self.view, animated: true)
 
-          self.searchBar.isHidden = false
+      //    self.searchBar.isHidden = false
           
           self.movies = dataDictionary["results"] as? [NSDictionary]
           self.filteredMovies = self.movies
