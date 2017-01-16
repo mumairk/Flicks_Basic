@@ -10,7 +10,7 @@ import UIKit
 import AFNetworking
 
 class DetailViewController: UIViewController {
-
+  
   
   @IBOutlet weak var posterImageView: UIImageView!
   @IBOutlet weak var titleLabel: UILabel!
@@ -28,20 +28,20 @@ class DetailViewController: UIViewController {
   let baseUrl: String = "http://image.tmdb.org/t/p/w342"
   
   override func viewDidLoad() {
-        super.viewDidLoad()
+    super.viewDidLoad()
     
     let title = movie["title"] as? String
     titleLabel.text = title!
     self.navigationItem.title = title!
     
-
+    
     let overview = movie["overview"] as? String
     overviewLabel.text = overview!
     
     overviewLabel.sizeToFit()
     
-   loadImage()
-  
+    loadImage()
+    
     let navigationBar = navigationController?.navigationBar
     
     let shadow = NSShadow()
@@ -51,25 +51,25 @@ class DetailViewController: UIViewController {
     navigationBar?.titleTextAttributes = [
       NSFontAttributeName : UIFont.boldSystemFont(ofSize: 22),
       NSForegroundColorAttributeName : UIColor(red: 0.9176, green: 0.9255, blue: 0.9765, alpha: 1.0) /* #eaecf9 */,
-        NSShadowAttributeName : shadow
+      NSShadowAttributeName : shadow
     ]
-        
+    
     scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
     
-    print(movie) 
-  
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    print(movie)
     
-
+  }
+  
+  override func didReceiveMemoryWarning() {
+    super.didReceiveMemoryWarning()
+    // Dispose of any resources that can be recreated.
+  }
+  
+  
   func loadImage() {
     
     if let posterPath = movie["poster_path"] as? String {
-
+      
       let lowResPath: String = lowResBaseUrl + posterPath
       let highResPath: String = highResBaseUrl + posterPath
       
@@ -83,47 +83,41 @@ class DetailViewController: UIViewController {
         
         UIView.animate(withDuration: 0.5, animations: { () -> Void in
           
-          self.posterImageView.alpha = 1.0
+        self.posterImageView.alpha = 1.0
           
         }, completion: { (success) -> Void in
           
           self.posterImageView.setImageWith(highResImageRequest, placeholderImage: lowResImage, success: { (highResImageRequest, highResImageResponse, highResImage) -> Void in
             
-              self.posterImageView.image = highResImage
+          self.posterImageView.image = highResImage
             
           },
-                                            failure: { (request, response, error) -> Void in
-                       // Do something 
+            failure: { (request, response, error) -> Void in
+              print("failure to get image")
                                               
           })
         })
         
       },
-                                        failure: { (request, response, error) -> Void in
-                                          
-                                        // do something
+            failure: { (request, response, error) -> Void in
+              print("failure to get image")
                                           
       })
       
-      
-      //let imageUrl = NSURL(string: baseUrl + posterPath)
-      //posterImageView.setImageWith(imageUrl as! URL)
-  
+    }
+    
     
   }
   
   
-  }
+  // MARK: - Navigation
   
-
-    // MARK: - Navigation
-
-   // override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      
-    
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+  // override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+  
+  
+  // Get the new view controller using segue.destinationViewController.
+  // Pass the selected object to the new view controller.
   //  }
-
-
+  
+  
 }
