@@ -28,7 +28,9 @@ class DetailViewController: UIViewController {
     
     let title = movie["title"] as? String
     titleLabel.text = title!
+    self.navigationItem.title = title!
     
+
     let overview = movie["overview"] as? String
     overviewLabel.text = overview!
     
@@ -42,7 +44,19 @@ class DetailViewController: UIViewController {
       posterImageView.setImageWith(imageUrl as! URL)
       
     }
+  
+    let navigationBar = navigationController?.navigationBar
     
+    let shadow = NSShadow()
+    shadow.shadowColor = UIColor.gray.withAlphaComponent(0.5)
+    shadow.shadowOffset = .init(width: 1, height: 1)
+    shadow.shadowBlurRadius = 2;
+    navigationBar?.titleTextAttributes = [
+      NSFontAttributeName : UIFont.boldSystemFont(ofSize: 22),
+      NSForegroundColorAttributeName : UIColor(red: 0.9176, green: 0.9255, blue: 0.9765, alpha: 1.0) /* #eaecf9 */,
+        NSShadowAttributeName : shadow
+    ]
+        
     scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
     
     print(movie) 
