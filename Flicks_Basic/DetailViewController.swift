@@ -22,6 +22,10 @@ class DetailViewController: UIViewController {
   
   
   var movie: NSDictionary!
+  let lowResBaseUrl: String = "https://image.tmdb.org/t/p/w45"
+  let highResBaseUrl: String = "https://image.tmdb.org/t/p/original"
+  
+  let baseUrl: String = "http://image.tmdb.org/t/p/w342"
   
   override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,14 +40,7 @@ class DetailViewController: UIViewController {
     
     overviewLabel.sizeToFit()
     
-    let baseUrl = "http://image.tmdb.org/t/p/w342"
-    
-    if let posterPath = movie["poster_path"] as? String {
-      
-      let imageUrl = NSURL(string: baseUrl + posterPath)
-      posterImageView.setImageWith(imageUrl as! URL)
-      
-    }
+   loadImage()
   
     let navigationBar = navigationController?.navigationBar
     
@@ -69,6 +66,55 @@ class DetailViewController: UIViewController {
     }
     
 
+  func loadImage() {
+    
+    if let posterPath = movie["poster_path"] as? String {
+
+      let lowResPath: String = lowResBaseUrl + posterPath
+      let highResPath: String = highResBaseUrl + posterPath
+      
+      let lowResImageRequest = URLRequest(url: NSURL(string: lowResPath) as! URL)
+      let highResImageRequest = URLRequest(url: NSURL(string: highResPath) as! URL)
+      
+      self.posterImageView.setImageWith(lowResImageRequest, placeholderImage: nil, success: {(lowResImageRequest, lowResImageResponse, lowResImage) -> Void in
+        
+        self.posterImageView.alpha = 0.0
+        self.posterImageView.image = lowResImage
+        
+        UIView.animate(withDuration: 0.5, animations: { () -> Void in
+          
+          self.posterImageView.alpha = 1.0
+          
+        }, completion: { (success) -> Void in
+          
+          self.posterImageView.setImageWith(highResImageRequest, placeholderImage: lowResImage, success: { (highResImageRequest, highResImageResponse, highResImage) -> Void in
+            
+              self.posterImageView.image = highResImage
+            
+          },
+                                            failure: { (request, response, error) -> Void in
+                       // Do something 
+                                              
+          })
+        })
+        
+      },
+                                        failure: { (request, response, error) -> Void in
+                                          
+                                        // do something
+                                          
+      })
+      
+      
+      //let imageUrl = NSURL(string: baseUrl + posterPath)
+      //posterImageView.setImageWith(imageUrl as! URL)
+  
+    
+  }
+  
+  
+  }
+  
 
     // MARK: - Navigation
 
