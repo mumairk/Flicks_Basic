@@ -59,7 +59,7 @@ Cocoapod installation required migrating to Cocoa Pods 1.0.0.
     See the License for the specific language governing permissions and
     limitations under the License.
 
-# Project 2 - *FlICKS THE SEQUEL*
+# Project 2 - *Flicks the Sequel*
 
 **FLICKS THE SEUQEL** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).   
 
