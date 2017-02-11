@@ -80,6 +80,7 @@ The following **optional** features are implemented:
 
 The following **additional** features are implemented:
 
+- [X] Implemented autolayout.
 - [X] Customized appearance of tab bar.
 - [X] Implemented search bar inside navigation bar
 - [X] Programmatically implemented styling to the nav bar, including shadow styling on the DetailsViewController
