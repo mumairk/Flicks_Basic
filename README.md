@@ -24,7 +24,7 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [X] Added button to toggle between CollectionView and TableView
-- [X] Added launch screen
+- [X] Added launch screen and icons
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
@@ -63,7 +63,7 @@ Cocoapod installation required migrating to Cocoa Pods 1.0.0.
 
 **FLICKS THE SEUQEL** is a movies app displaying box office and top rental DVDs using [The Movie Database API](http://docs.themoviedb.apiary.io/#).   
 
-Time spent: **8** hours spent in total
+Time spent: **2** hours spent in total
 
 ## User Stories
 
@@ -81,13 +81,17 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [X] Customized appearance of tab bar.
-- [X] Implemented search bar inside navigation bar
-
+- [X] Implemented search bar inside navigation bar, including shadow styling on the DetailsViewController
+- [X] Programmatically implemented styling to the nav bar 
+- [X] Modified code to facilitate smooth transition betweetn tableview and collectionview, within the appropriate endpoints
+- [X] Added feature to save a movie as a favorite 
+- [X] Added endpoint for upcoming movies and implemented in the tab bar controller
+- [X] Added tab bar icon for the movies saved as favorites 
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. Implementing launch screen and app icons
-2. 
+1. Modify the app to create a Movie struct or class, and use this to populate the different view controllers
+2. Introduce to persistence for saving the movies and accessing them after restarting 
 
 ## Video Walkthrough 
 
@@ -99,7 +103,7 @@ GIF created with LiceCap (http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+Icons obtained via iconmnstr.com 
 
 ## License
 
