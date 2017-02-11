@@ -12,7 +12,8 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
-
+  
+  var myFavorites: [NSDictionary] = []
 
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
     
@@ -31,11 +32,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     topRatedViewController.endpoint = "top_rated"
     topRatedNavigationController.tabBarItem.title = "Top Rated"
     topRatedNavigationController.tabBarItem.image = UIImage(named: "star_lightgrey24")
+
+    let upComingNavigationController = storyboard.instantiateViewController(withIdentifier: "MoviesNavigationController") as! UINavigationController
+    let upComingViewController = upComingNavigationController.topViewController as! MoviesViewController
+    upComingViewController.endpoint = "upcoming"
+    upComingNavigationController.tabBarItem.title = "Upcoming"
+    upComingNavigationController.tabBarItem.image = UIImage(named: "calendar_grey24")
+
+    let myFavoritesNavigationController = storyboard.instantiateViewController(withIdentifier: "MoviesNavigationController") as! UINavigationController
+    let myFavoritesViewController = myFavoritesNavigationController.topViewController as! MoviesViewController
+    myFavoritesViewController.endpoint = "myFavorites"
+    myFavoritesNavigationController.tabBarItem.title = "My Favorites"
+    myFavoritesNavigationController.tabBarItem.image = UIImage(named: "save_medgrey24")
+
     
     let tabBarController = UITabBarController()
-    tabBarController.viewControllers = [nowPlayingNavigationController, topRatedNavigationController]
-    
-
+    tabBarController.viewControllers = [nowPlayingNavigationController, upComingNavigationController, topRatedNavigationController, myFavoritesNavigationController]
     
     
     window?.rootViewController = tabBarController

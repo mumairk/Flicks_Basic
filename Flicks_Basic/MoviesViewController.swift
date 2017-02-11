@@ -22,6 +22,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   var currentView: UIView!
   var movies: [NSDictionary]?
   var movie: NSDictionary!
+  var name: String?
+  var overview: String?
   var filteredMovies: [NSDictionary]?
   var imageUrl: NSURL!
   var collectionIsFirstView: Bool = true
@@ -65,7 +67,19 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     
-    return filteredMovies?.count ?? 0
+    var count: Int
+    
+    if endpoint == "myFavorites"{
+    
+      let delegate = UIApplication.shared.delegate as! AppDelegate
+      let myFavMovies = delegate.myFavorites as [NSDictionary]
+      count = myFavMovies.count
+    } else {
+      count = filteredMovies?.count ?? 0
+    }
+    
+    print("Count: \(count)")
+    return count
   }
   
   
@@ -73,20 +87,38 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieCell
     
-    let movie = filteredMovies![indexPath.row]
-    let title = movie["title"] as! String
-    let overview = movie["overview"] as! String
-    
-    let baseUrl = "http://image.tmdb.org/t/p/w342"
-    
-    if let posterPath = movie["poster_path"] as? String {
+    if endpoint == "myFavorites"{
       
-      imageUrl = NSURL(string: baseUrl + posterPath)
-      fadeInImageRequest(poster: cell.posterView)
+      let delegate = UIApplication.shared.delegate as! AppDelegate
+      let myFavMovies = delegate.myFavorites as [NSDictionary]
+      let movie = myFavMovies[indexPath.row]
+      name = movie["title"] as? String
+      overview = movie["overview"] as? String
       
+      let baseUrl = "http://image.tmdb.org/t/p/w342"
+      
+      if let posterPath = movie["poster_path"] as? String {
+        
+        imageUrl = NSURL(string: baseUrl + posterPath)
+        fadeInImageRequest(poster: cell.posterView)
+      }
+    } else {
+      
+      let movie = filteredMovies![indexPath.row]
+      name = movie["title"] as? String
+      overview = movie["overview"] as? String
+      
+      let baseUrl = "http://image.tmdb.org/t/p/w342"
+      
+      if let posterPath = movie["poster_path"] as? String {
+        
+        imageUrl = NSURL(string: baseUrl + posterPath)
+        fadeInImageRequest(poster: cell.posterView)
+      }
     }
+
     
-    cell.titleLabel.text = title
+    cell.titleLabel.text = name
     cell.overviewLabel.text = overview
     
     let backgroundView = UIView()
@@ -160,37 +192,78 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
   
   // MARK: - COLLECTION VIEW
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+   
+    var count: Int
     
-    return filteredMovies?.count ?? 0
+    if endpoint == "myFavorites"{
+      
+      let delegate = UIApplication.shared.delegate as! AppDelegate
+      let myFavMovies = delegate.myFavorites as [NSDictionary]
+      count = myFavMovies.count
+    } else {
+      count = filteredMovies?.count ?? 0
+    }
+    
+    print("Count: \(count)")
+    return count
+
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
     
-    let movie = filteredMovies![indexPath.item]
-    
-    let title = movie["title"] as! String
-    cell.titleLabel.text = title
-    
-    
-    let baseUrl = "http://image.tmdb.org/t/p/w342"
-    
-    if let posterPath = movie["poster_path"] as? String {
+    if endpoint == "myFavorites"{
       
-      imageUrl = NSURL(string: baseUrl + posterPath)
-      fadeInImageRequest(poster: cell.posterImageView)
+      let delegate = UIApplication.shared.delegate as! AppDelegate
+      let myFavMovies = delegate.myFavorites as [NSDictionary]
+      let movie = myFavMovies[indexPath.item]
+      name = movie["title"] as? String
+      overview = movie["overview"] as? String
       
+      let baseUrl = "http://image.tmdb.org/t/p/w342"
+      
+      if let posterPath = movie["poster_path"] as? String {
+        
+        imageUrl = NSURL(string: baseUrl + posterPath)
+        fadeInImageRequest(poster: cell.posterImageView)
+      }
+    } else {
+      
+      let movie = filteredMovies![indexPath.item]
+      name = movie["title"] as? String
+      overview = movie["overview"] as? String
+      
+      let baseUrl = "http://image.tmdb.org/t/p/w342"
+      
+      if let posterPath = movie["poster_path"] as? String {
+        
+        imageUrl = NSURL(string: baseUrl + posterPath)
+        fadeInImageRequest(poster: cell.posterImageView)
+
+      }
     }
+
+    
+    
+    cell.titleLabel.text = title
     
     return cell
     
   }
   
   
-  
   // MARK: - NETWORK REQUEST
   
   func loadDataFromNetwork(){
+    
+    if endpoint == "myFavorites"{
+      let delegate = UIApplication.shared.delegate as! AppDelegate
+      let myFavMovies = delegate.myFavorites as [NSDictionary]
+      self.movies = myFavMovies
+      print("SAVED MOVIES ARE: \(self.movies!)")
+      self.tableView.reloadData()
+    }
+    else {
     
     let apiKey = "08626c78c1c24c6f0e9912f59264d957"
     let urlString = "https://api.themoviedb.org/3/movie/\(endpoint!)?api_key="
@@ -226,6 +299,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
       }
     }
     task.resume()
+  }
   }
   
   func reloadData(){
@@ -321,7 +395,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     print("prepare for segue called")
     
-    
     if segue.identifier == "CollectionView" {
       
       let cell = sender as! UICollectionViewCell
@@ -338,6 +411,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     let detailViewController = segue.destination as! DetailViewController
     detailViewController.movie = movie
+    
+    print("Movie: \(movie!)")
     
   }
   

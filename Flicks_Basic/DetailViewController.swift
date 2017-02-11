@@ -20,6 +20,7 @@ class DetailViewController: UIViewController {
   
   @IBOutlet weak var infoView: UIView!
   
+  var isSaved: Bool!
   
   var movie: NSDictionary!
   let lowResBaseUrl: String = "https://image.tmdb.org/t/p/w45"
@@ -33,6 +34,8 @@ class DetailViewController: UIViewController {
     let title = movie["title"] as? String
     titleLabel.text = title!
     self.navigationItem.title = title!
+    
+    isSaved = false // refactor note: update for persistence 
     
     
     let overview = movie["overview"] as? String
@@ -58,11 +61,6 @@ class DetailViewController: UIViewController {
     
     print(movie)
     
-  }
-  
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
   }
   
   
@@ -103,11 +101,22 @@ class DetailViewController: UIViewController {
               print("failure to get image")
                                           
       })
-      
     }
     
     
   }
+  
+  
+  @IBAction func saveToFavorites(_ sender: UIBarButtonItem) {
+      print("Clicked on Save to Favorites")
+
+    print("saving: \(movie!)")
+    let delegate = UIApplication.shared.delegate as! AppDelegate
+    delegate.myFavorites.append(movie)
+    isSaved = true // note for refactoring - need to update this for persistence
+    
+  }
+  
   
   
   // MARK: - Navigation
