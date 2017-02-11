@@ -81,8 +81,8 @@ The following **optional** features are implemented:
 The following **additional** features are implemented:
 
 - [X] Customized appearance of tab bar.
-- [X] Implemented search bar inside navigation bar, including shadow styling on the DetailsViewController
-- [X] Programmatically implemented styling to the nav bar 
+- [X] Implemented search bar inside navigation bar
+- [X] Programmatically implemented styling to the nav bar, including shadow styling on the DetailsViewController
 - [X] Modified code to facilitate smooth transition betweetn tableview and collectionview, within the appropriate endpoints
 - [X] Added feature to save a movie as a favorite 
 - [X] Added endpoint for upcoming movies and implemented in the tab bar controller
